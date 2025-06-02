@@ -45,39 +45,35 @@ void pararElevador()
 
 void loop() {
   // botao um
-  if (digitalRead(botao_1) == HIGH)
-  { 
-    if (digitalRead(fim_de_curso_t) == HIGH)
-    { // se tiver no terreo
-      if (digitalRead(sensor_proximidade_1) == HIGH) 
-        subirElevador();
-      else
-        pararElevador();
-    }
-    else if (digitalRead(sensor_proximidade_2) == LOW || digitalRead(fim_de_curso_3) == HIGH){
-      if (digitalRead(sensor_proximidade_1) == HIGH){
-        descerElevador();
-      } else{
-        pararElevador();
-      }
-    }
-  }
+  if (digitalRead(botao_1) == LOW)
 
-    // botao dois
-  else if (digitalRead(botao_2) == HIGH || sensor_proximidade_1 == LOW){ 
-    if (digitalRead(fim_de_curso_t) == HIGH){ // se tiver no terreo ou no primeiro
-      if (digitalRead(sensor_proximidade_2) == HIGH){
-        subirElevador();
-      } else{
-        pararElevador();
-      }
+  { 
+    Serial.print("apertou botao 1\n");
+    // Se ainda não chegou no teto
+    if (digitalRead(fim_de_curso_3) == HIGH){
+
+    
+      subirElevador();
+      Serial.print("subindo\n");
     }
-    else if (digitalRead(fim_de_curso_3) == HIGH){
-      if (digitalRead(sensor_proximidade_2) == HIGH){
-        descerElevador();
-      } else{
-        pararElevador();
-      }
+    else
+      pararElevador();
+  }
+  // botao dois
+  else if (digitalRead(botao_2) == LOW)
+  { 
+    Serial.print("apertou botao 2\n");
+
+    // Se ainda não chegou no terreo
+    if (digitalRead(fim_de_curso_t) == HIGH){
+
+    
+      descerElevador();
+      Serial.print("descendo\n");
+
     }
+
+    else
+      pararElevador();
   }
 }
